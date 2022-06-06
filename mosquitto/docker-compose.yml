@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  # Eclipse Mosquitto MQTT Broker
+  mosquitto:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - MOSQUITTO_VERSION=${MOSQUITTO_VERSION:-latest}
+    environment:
+      - MOSQUITTO_USERNAME=${MOSQUITTO_USERNAME}
+      - MOSQUITTO_PASSWORD=${MOSQUITTO_PASSWORD}
+    #image: eclipse-mosquitto:${MOSQUITTO_VERSION:-latest}
+    container_name: mosquitto
+    restart: unless-stopped
+    volumes:
+      - ./data:/mosquitto/data
+      - ./log:/mosquitto/log
+      - ./config:/mosquitto/config
+    ports:
+      - 1883:1883

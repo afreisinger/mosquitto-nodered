@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  # Node Red
+  nodered:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODERED_VERSION=${NODERED_VERSION:-latest}
+    
+    image: node-red:${NODERED_VERSION:-latest}
+    container_name: nodered
+    ports:
+      - 1880:1880
+    volumes:
+      - nodered:/data
+    restart: unless-stopped
+volumes:
+  nodered:

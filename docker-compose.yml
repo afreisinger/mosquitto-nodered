@@ -1,0 +1,51 @@
+version: "3"
+services:
+  mosquitto:
+    container_name: mosquitto
+    build: 
+      context: ./mosquitto
+      dockerfile: Dockerfile
+      args:
+        - MOSQUITTO_VERSION=${MOSQUITTO_VERSION:-latest}
+    
+    environment:
+     # - MOSQUITTO_VERSION=${MOSQUITTO_VERSION:-latest}
+      - MOSQUITTO_USERNAME=${MOSQUITTO_USERNAME}
+      - MOSQUITTO_PASSWORD=${MOSQUITTO_PASSWORD}
+    #networks:
+     # - iot
+    ports:
+      - "1883:1883"
+    volumes:
+      - mosquitto_data:/mosquitto/data 
+      - mosquitto_config:/mosquitto/config
+      - mosquitto_log:/mosquitto/log
+    restart: on-failure
+  
+  nodered:
+    build:
+      context: ./nodered
+      dockerfile: Dockerfile
+      args:
+        - NODERED_VERSION=${NODERED_VERSION:-latest}
+    environment:
+      - TZ=Argentina/Buenos_Aires
+   
+    #image: node-red:${NODERED_VERSION:-latest}
+    container_name: nodered
+    #networks:
+     # - iot
+    ports:
+      - 1880:1880
+    volumes:
+      - nodered:/data
+    restart: unless-stopped  
+
+volumes:
+  mosquitto_data:
+  mosquitto_config:
+  mosquitto_log:
+  nodered:
+
+networks:
+  iot:
