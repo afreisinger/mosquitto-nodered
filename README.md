@@ -1,4 +1,4 @@
-# nodered-mqtt
+# mosquitto-nodered
 
 Node-RED and Mosquitto deploy with flows
 
