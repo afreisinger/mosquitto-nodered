@@ -6,10 +6,10 @@ services:
       context: ./mosquitto
       dockerfile: Dockerfile
       args:
-        - MOSQUITTO_VERSION=${MOSQUITTO_VERSION:-latest}
+        - MOSQUITTO_VERSION=${MOSQUITTO_VERSION:-latest} #This is a way to force Mosquitto version via env variable, by default latest will be used, check compose file specification to be sure. (https://docs.docker.com/compose/compose-file/#interpolation)
     
     environment:
-     # - MOSQUITTO_VERSION=${MOSQUITTO_VERSION:-latest}
+     
       - MOSQUITTO_USERNAME=${MOSQUITTO_USERNAME}
       - MOSQUITTO_PASSWORD=${MOSQUITTO_PASSWORD}
     networks:
@@ -31,7 +31,7 @@ services:
     environment:
       - TZ=Argentina/Buenos_Aires
    
-    #image: node-red:${NODERED_VERSION:-latest}
+    image: node-red:${NODERED_VERSION:-latest}
     container_name: nodered
     networks:
       - iot
