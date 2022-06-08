@@ -12,8 +12,8 @@ services:
      
       - MOSQUITTO_USERNAME=${MOSQUITTO_USERNAME}
       - MOSQUITTO_PASSWORD=${MOSQUITTO_PASSWORD}
-    networks:
-      - iot
+    #networks:
+     # - iot
     ports:
       - "1883:1883"
     volumes:
@@ -33,8 +33,8 @@ services:
    
     image: node-red:${NODERED_VERSION:-latest}
     container_name: nodered
-    networks:
-      - iot
+    #networks:
+    #  - iot
     ports:
       - 1880:1880
     volumes:
@@ -47,5 +47,5 @@ volumes:
   mosquitto_log:
   nodered:
 
-networks:
-  iot:
+#networks:
+ # iot:
